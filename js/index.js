@@ -10,7 +10,7 @@ function getTime() {
 		var date = new Date();
 		var hours = date.getHours().toString();
 		var minutes = (date.getMinutes() < 10 ? "0" : "") + date.getMinutes().toString();
-		var seconds = date.getSeconds().toString();
+		var seconds = (date.getSeconds() < 10 ? "0" : "") + date.getSeconds().toString();
 		document.getElementById("time").innerHTML = hours + ":" + minutes + ":" + seconds;
 		getTime();
 	}, 1000);
@@ -26,6 +26,10 @@ function getLocation() {
 		navigator.geolocation.getCurrentPosition(function(position) {
 			latitude = position.coords.latitude
 			longitutde = position.coords.longitude;
+		},
+		// Failed
+		function() {
+			$("#currentCity").html("Could not retrieve location. Assuming. <br>");
 		});
 	}
 
@@ -34,7 +38,7 @@ function getLocation() {
 	// show city name based on latitude and longitude
 	googleMapsEndpoint = 'http://maps.googleapis.com/maps/api/geocode/json?latlng='+latitude+','+longitude+'&sensor=true';
 	$.getJSON(googleMapsEndpoint, function(data) {
-		$("#currentCity").html(data["results"][1]["formatted_address"]);
+		$("#currentCity").append(data["results"][1]["formatted_address"]);
 	}); 
 
 }
