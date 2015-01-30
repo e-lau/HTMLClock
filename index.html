@@ -3,14 +3,44 @@
 	<head>
 		<title>Elaine's Clock</title>
 		<link href="css/index.css" rel="stylesheet" type="text/css">
+		<link href="css/alarm.css" rel="stylesheet" type="text/css">
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	</head>
 	<body>
 		<h4 class="name">Elaine's Clock</p>
 		<h1 id="time"></h1>
-		<img id="forecastIcon">
-		<div id="forecastLabel"></div>
-		<h4>No Alarms Set</h2>
+		<div id="forecastContainer">
+			<img id="forecastIcon">
+			<div id="forecastLabel"></div>
+		</div>
+		<div id="alarmContainer">
+			<div id="alarmHeader" class="flexible">
+					<h2>Alarms</h2>
+					<input type="button" value="Add Alarm" class="button" onclick="showAlarmPopup()"/>
+			</div>
+			<div id="alarms"></div>
+		</div>
+		<div id="mask" class="hide">
+
+		</div>
+		<div id="popup" class="hide">
+			<h1>Add Alarm</h1>
+			<div id="timeContainer">
+				<select id="hours">
+				</select>
+				<select id="mins">
+				</select>
+				<select id="ampm">
+					<option>am</option>
+					<option>pm</option>
+				</select>
+			</div>
+			<input type="text" id="alarmName" placeholder="Alarm Name"/>
+			<div class="flexible">
+				<input type="button" class="button" value="Cancel" onclick="hideAlarmPopup()"/>
+				<input type="button" class="button" value="Save Alarm" onclick="addAlarm()"/>
+			</div>
+		</div>
 		<p id="currentCity"></p>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>
 		<script src="js/index.js" type="text/javascript"></script>

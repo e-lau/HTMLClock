@@ -3,6 +3,17 @@ window.onload = start;
 function start() {
 	getLocation();
 	getTime();
+	addAlarmOptions();
+}
+
+function addAlarmOptions() {
+	for (var i = 1; i <= 12; i++) {
+		$("#hours").append("<option>" +  (i < 10 ? "0" : "") + i + "</option>");
+	}
+	for (var i = 1; i <= 59; i++) {
+		$("#mins").append("<option>" + (i < 10 ? "0" : "") + i + "</option>");
+	}
+	
 }
 
 function getTime() {
@@ -81,4 +92,35 @@ function getForecast(latitude, longitude) {
 
 			$("body").addClass(todayBackground);
 		})
+}
+
+
+function showAlarmPopup() {
+	$("#mask").removeClass("hide");
+	$("#popup").removeClass("hide");
+}
+
+function hideAlarmPopup() {
+	$("#mask").addClass("hide");
+	$("#popup").addClass("hide");
+}
+
+function insertAlarm(hours, mins, ampm, alarmName) {
+	var elem = $("<div>");
+	elem.addClass("flexible");
+	elem.append("<div class='name'>" + alarmName + "</div>");
+	elem.append("<div class='time'>" + hours + ":" + mins + " " + ampm + "</div>");
+	$("#alarms").append(elem);
+}
+
+function addAlarm() {
+	var hours, mins, ampm, alarmName;
+	var hours = $("#hours option:selected").text();
+	var mins = $("#mins option:selected").text();
+	var ampm = $("#ampm option:selected").text();
+	var alarmName = $("#alarmName").text();
+	insertAlarm(hours, mins, ampm, alarmName);
+	hideAlarmPopup();
+
+
 }
