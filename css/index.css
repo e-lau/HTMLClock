@@ -15,9 +15,33 @@ p {
 }
 
 #forecastContainer {
-	width: 500px;
+	width: 600px;
 	margin: 0px auto;
 	padding: 20px;
+}
+
+.name {
+	width: 250px;
+	padding: 5px;
+	margin: 5px;
+}
+
+.time {
+	width: 250px;
+	padding: 5px;
+	margin: 5px;
+}
+
+.delete {
+	width: 100px;
+	padding: 5px;
+	margin: 5px;
+	background-color: #FF1F62;
+	color: #FFF;
+}
+
+.delete:hover {
+	background-color: #FF729C;
 }
 
 .h1 {
