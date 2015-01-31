@@ -123,6 +123,8 @@ function hideAlarmPopup() {
 }
 
 function insertAlarm(hours, mins, ampm, alarmName) {
+	$("#noAlarms").remove();
+
 	var elem = $("<div>");
 	elem.addClass("flexible");
 	elem.append("<div class='name' id='"+ alarmName +"'>" + alarmName + "</div>");
@@ -143,8 +145,8 @@ function deleteAlarm(event) {
     var query = new Parse.Query(AlarmObject);
     query.find({
         success: function(results) {
-        	if (results.length == 0) {
-        		$("#alarms").append("<p>No Alarms Set</p>");
+        	if (results.length == 1) {
+        		$("#alarms").append("<p id='noAlarms'>No Alarms Set</p>");
         	}
             for (var i = 0; i < results.length; i++) { 
             	var data = results[i]._serverData;
@@ -188,7 +190,7 @@ function getAllAlarms() {
     query.find({
         success: function(results) {
         	if (results.length == 0) {
-        		$("#alarms").append("<p>No Alarms Set</p>");
+        		$("#alarms").append("<p id='noAlarms'>No Alarms Set</p>");
         	}
             for (var i = 0; i < results.length; i++) { 
             	var data = results[i]._serverData;
