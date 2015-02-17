@@ -128,13 +128,13 @@ function insertAlarm(hours, mins, ampm, alarmName) {
 
 	var elem = $("<div>");
 	elem.addClass("flexible");
-	elem.append("<div class='name' id='"+ alarmName +"'>" + alarmName.replace(/\s+/g, '') + "</div>");
+	elem.append("<div class='name' id='"+ alarmName +"'>" + alarmName + "</div>");
 	elem.append("<div class='time'>" + hours + ":" + mins + " " + ampm + "</div>");
 
 	var deleteButton = $("<div>");
 	deleteButton.addClass("delete");
 	deleteButton.html("delete");
-	deleteButton.click(alarmName.toString().replace(/\s+/g, ''), deleteAlarm);
+	deleteButton.click(alarmName.toString(), deleteAlarm);
 	elem.append(deleteButton);
 
 	$("#alarms").append(elem);
@@ -151,7 +151,7 @@ function deleteAlarm(event) {
 			}
 			for (var i = 0; i < results.length; i++) { 
 				var data = results[i]._serverData;
-				if (deleteAlarmName == data.alarmName) {
+				if (deleteAlarmName == data.alarmName.replace(/\s+/g, '')) {
             		// delete the object
             		results[i].destroy();
             		// remove delete button
@@ -171,7 +171,7 @@ function addAlarm() {
 	var hours = $("#hours option:selected").text();
 	var mins = $("#mins option:selected").text();
 	var ampm = $("#ampm option:selected").text();
-	var alarmName = $("#alarmName").val();
+	var alarmName = $("#alarmName").val().replace(/\s+/g, '');
 
 	var AlarmObject = Parse.Object.extend("Alarm");
 	var alarmObject = new AlarmObject();
