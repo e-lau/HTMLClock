@@ -128,20 +128,20 @@ function insertAlarm(hours, mins, ampm, alarmName) {
 
 	var elem = $("<div>");
 	elem.addClass("flexible");
-	elem.append("<div class='name' id='"+ alarmName +"'>" + alarmName + "</div>");
+	elem.append("<div class='name' id='"+ alarmName +"'>" + alarmName.replace(/\s+/g, '') + "</div>");
 	elem.append("<div class='time'>" + hours + ":" + mins + " " + ampm + "</div>");
 
 	var deleteButton = $("<div>");
 	deleteButton.addClass("delete");
 	deleteButton.html("delete");
-	deleteButton.click(alarmName.toString(), deleteAlarm);
+	deleteButton.click(alarmName.toString().replace(/\s+/g, ''), deleteAlarm);
 	elem.append(deleteButton);
 
 	$("#alarms").append(elem);
 }
 
 function deleteAlarm(event) {
-	var deleteAlarmName = event.data.toString().replace(/\s+/g, '');
+	var deleteAlarmName = event.data.toString();
 	var AlarmObject = Parse.Object.extend("Alarm");
 	var query = new Parse.Query(AlarmObject);
 	query.find({
@@ -171,7 +171,7 @@ function addAlarm() {
 	var hours = $("#hours option:selected").text();
 	var mins = $("#mins option:selected").text();
 	var ampm = $("#ampm option:selected").text();
-	var alarmName = $("#alarmName").val().toString().replace(/\s+/g, '');
+	var alarmName = $("#alarmName").val();
 
 	var AlarmObject = Parse.Object.extend("Alarm");
 	var alarmObject = new AlarmObject();
