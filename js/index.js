@@ -280,6 +280,8 @@ function getAllAlarms(userid) {
   		document.getElementById('status').innerHTML =
   		'Thanks for logging in, ' + response.name + '!';
 
+  		$("#loginButton").remove();
+
   		getAllAlarms(response.id);
   	});
   }
