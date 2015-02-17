@@ -128,13 +128,13 @@ function insertAlarm(hours, mins, ampm, alarmName) {
 
 	var elem = $("<div>");
 	elem.addClass("flexible");
-	elem.append("<div class='name' id='"+ alarmName +"'>" + alarmName + "</div>");
+	elem.append("<div class='name' id='"+ alarmName +"'>" + alarmName.replace(/\s+/g, ''); + "</div>");
 	elem.append("<div class='time'>" + hours + ":" + mins + " " + ampm + "</div>");
 
 	var deleteButton = $("<div>");
 	deleteButton.addClass("delete");
 	deleteButton.html("delete");
-	deleteButton.click(alarmName.toString(), deleteAlarm);
+	deleteButton.click(alarmName.toString().replace(/\s+/g, ''), deleteAlarm);
 	elem.append(deleteButton);
 
 	$("#alarms").append(elem);
