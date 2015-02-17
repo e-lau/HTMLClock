@@ -141,7 +141,7 @@ function insertAlarm(hours, mins, ampm, alarmName) {
 }
 
 function deleteAlarm(event) {
-	var deleteAlarmName = event.data;
+	var deleteAlarmName = event.data.toString().replace(/\s+/g, '');
 	var AlarmObject = Parse.Object.extend("Alarm");
 	var query = new Parse.Query(AlarmObject);
 	query.find({
@@ -151,7 +151,7 @@ function deleteAlarm(event) {
 			}
 			for (var i = 0; i < results.length; i++) { 
 				var data = results[i]._serverData;
-				if (deleteAlarmName == data.alarmName.replace(/\s+/g, '')) {
+				if (deleteAlarmName == data.alarmName) {
             		// delete the object
             		results[i].destroy();
             		// remove delete button
@@ -171,7 +171,7 @@ function addAlarm() {
 	var hours = $("#hours option:selected").text();
 	var mins = $("#mins option:selected").text();
 	var ampm = $("#ampm option:selected").text();
-	var alarmName = $("#alarmName").val().replace(/\s+/g, '');
+	var alarmName = $("#alarmName").val().toString().replace(/\s+/g, '');
 
 	var AlarmObject = Parse.Object.extend("Alarm");
 	var alarmObject = new AlarmObject();
