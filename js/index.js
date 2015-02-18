@@ -3,7 +3,6 @@ window.onload = start;
 var fbUserId = 0;
 
 function start() {
-	deleteAllAlarms();
 	getLocation();
 	getTime();
 	addAlarmOptions();
@@ -126,16 +125,17 @@ function hideAlarmPopup() {
 
 function insertAlarm(hours, mins, ampm, alarmName) {
 	$("#noAlarms").remove();
+	var alarmNameNoSpaces = alarmName.replace(/\s+/g, '');
 
 	var elem = $("<div>");
 	elem.addClass("flexible");
-	elem.append("<div class='name' id='"+ alarmName.replace(/\s+/g, '') +"'>" + alarmName, '') + "</div>");
+	elem.append("<div class='name' id='"+ alarmNameNoSpaces +"'>" + alarmName + "</div>");
 	elem.append("<div class='time'>" + hours + ":" + mins + " " + ampm + "</div>");
 
 	var deleteButton = $("<div>");
 	deleteButton.addClass("delete");
 	deleteButton.html("delete");
-	deleteButton.click(alarmName.toString().replace(/\s+/g, ''), deleteAlarm);
+	deleteButton.click(alarmNameNoSpaces, deleteAlarm);
 	elem.append(deleteButton);
 
 	$("#alarms").append(elem);
@@ -152,7 +152,7 @@ function deleteAlarm(event) {
 			}
 			for (var i = 0; i < results.length; i++) { 
 				var data = results[i]._serverData;
-				if (deleteAlarmName == data.alarmName) {
+				if (deleteAlarmName == data.alarmName.replace(/\s+/g, '')) {
             		// delete the object
             		results[i].destroy();
             		// remove delete button
