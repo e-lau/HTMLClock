@@ -3,6 +3,7 @@ window.onload = start;
 var fbUserId = 0;
 
 function start() {
+	deleteAllAlarms();
 	getLocation();
 	getTime();
 	addAlarmOptions();
