@@ -179,6 +179,7 @@ function addAlarm() {
 	alarmObject.save({"hours": hours, 
 		"mins" : mins, 
 		"ampm" : ampm, 
+		"alarmName" : alarmName,
 		"alarmID": alarmID,
 		"userid" : fbUserId}, {
 			success: function(object) {
