@@ -245,6 +245,16 @@ function getAllAlarms(userid) {
   	});
   }
 
+  // Logout of fb
+  function logout() {
+  	document.getElementById('status').innerHTML = "";
+	FB.logout(function(response) {
+		$('#logoutButton').hide();
+		$('#loginButton').show();
+		location.reload();
+	});
+  }
+
   window.fbAsyncInit = function() {
   	FB.init({
   		appId      : '1551435141789991',
@@ -281,8 +291,10 @@ function getAllAlarms(userid) {
   		document.getElementById('status').innerHTML =
   		'Thanks for logging in, ' + response.name + '!';
 
-  		$("#loginButton").remove();
+  		$('#loginButton').hide();
+  		$("#user").append("<input type='button' id='logoutButton' value='Logout' onclick='logout()'/>");
 
   		getAllAlarms(response.id);
   	});
   }
+

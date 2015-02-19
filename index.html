@@ -10,10 +10,15 @@
 	<body>
 		<h4 class="title">Elaine's Clock</p>
 
-		<div id="loginButton"><fb:login-button id= scope="public_profile,email" onlogin="checkLoginState();"></div>
-		</fb:login-button>
+		<div id="user">
+			<div id="loginButton">
+				<fb:login-button id= scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
+			</div>
+			<div id="status"></div>
+		</div>
+		
 
-		<div id="status"></div>
+		
 
 		<h1 id="time"></h1>
 		<div id="forecastContainer">
@@ -23,7 +28,7 @@
 		<div id="alarmContainer">
 			<div id="alarmHeader" class="flexible">
 					<h2>Alarms</h2>
-					<input type="button" value="Add Alarm" class="button" onclick="showAlarmPopup()"/>
+					<input type="button" value="Add Alarm" onclick="showAlarmPopup()"/>
 			</div>
 			<div id="alarms"></div>
 		</div>
