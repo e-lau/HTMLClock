@@ -123,25 +123,26 @@ function hideAlarmPopup() {
 	$("#popup").addClass("hide");
 }
 
-function insertAlarm(hours, mins, ampm, alarmName, alarmID) {
+function insertAlarm(hours, mins, ampm, alarmName) {
 	$("#noAlarms").remove();
+	var alarmNameNoSpaces = alarmName.replace(/\W/g, '');
 
 	var elem = $("<div>");
 	elem.addClass("flexible");
-	elem.append("<div class='name' id='"+ alarmID +"'>" + alarmName + "</div>");
+	elem.append("<div class='name' id='"+ alarmNameNoSpaces +"'>" + alarmName + "</div>");
 	elem.append("<div class='time'>" + hours + ":" + mins + " " + ampm + "</div>");
 
 	var deleteButton = $("<div>");
 	deleteButton.addClass("delete");
 	deleteButton.html("delete");
-	deleteButton.click(alarmID, deleteAlarm);
+	deleteButton.click(alarmNameNoSpaces, deleteAlarm);
 	elem.append(deleteButton);
 
 	$("#alarms").append(elem);
 }
 
 function deleteAlarm(event) {
-	var alarmID = event.data.toString();
+	var deleteAlarmName = event.data.toString();
 	var AlarmObject = Parse.Object.extend("Alarm");
 	var query = new Parse.Query(AlarmObject);
 	query.find({
@@ -151,7 +152,7 @@ function deleteAlarm(event) {
 			}
 			for (var i = 0; i < results.length; i++) { 
 				var data = results[i]._serverData;
-				if (alarmID == data.alarmID) {
+				if (deleteAlarmName == data.alarmName.replace(/\W/g, '')) {
             		// delete the object
             		results[i].destroy();
             		// remove delete button
@@ -172,19 +173,17 @@ function addAlarm() {
 	var mins = $("#mins option:selected").text();
 	var ampm = $("#ampm option:selected").text();
 	var alarmName = $("#alarmName").val();
-	var alarmID = guid();
 
 	var AlarmObject = Parse.Object.extend("Alarm");
 	var alarmObject = new AlarmObject();
 	alarmObject.save({"hours": hours, 
 		"mins" : mins, 
 		"ampm" : ampm, 
-		"alarmName" : alarmName,
-		"alarmID": alarmID,
-		"userid" : fbUserId}, {
+		"alarmName": alarmName,
+		"userid" : fbUserId.toString()}, {
 			success: function(object) {
 				var data = object._serverData;
-				insertAlarm(data.hours, data.mins, data.ampm, data.alarmName, alarmID);
+				insertAlarm(data.hours, data.mins, data.ampm, data.alarmName);
 				hideAlarmPopup();
 			}
 		});
@@ -203,20 +202,10 @@ function getAllAlarms(userid) {
 				var data = results[i]._serverData;
 				fbUserId = userid;
 				if (data.userid == userid) {
-					insertAlarm(data.hours, data.mins, data.ampm, data.alarmName, data.alarmID);
+					insertAlarm(data.hours, data.mins, data.ampm, data.alarmName);
 				} 
 			}
 		}
-	});
-}
-
-
-function guid() {
-	return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, 
-	function(c) 
-	{
-	    var r = Math.random() * 16|0, v = c == 'x' ? r : (r&0x3|0x8);
-	    return v.toString(16);
 	});
 }
 
