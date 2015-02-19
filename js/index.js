@@ -202,7 +202,7 @@ function getAllAlarms(userid) {
 				var data = results[i]._serverData;
 				fbUserId = userid;
 				if (data.userid == userid) {
-					insertAlarm(data.hours, data.mins, data.ampm, data.alarmName);
+					insertAlarm(data.hours, data.mins, data.ampm, data.alarmName, data.alarmID);
 				} 
 			}
 		}
