@@ -14,6 +14,10 @@ function deleteAllAlarms() {
 	var query = new Parse.Query(AlarmObject);
 	query.find({
 		success: function(results) {
+
+			// signal to google analytics tracker
+			ga('send', 'event', 'Alarm', 'Delete');
+			
 			if (results.length == 0) {
 				$("#alarms").append("<p>No Alarms Set</p>");
 			}
@@ -184,6 +188,10 @@ function addAlarm() {
 			success: function(object) {
 				var data = object._serverData;
 				insertAlarm(data.hours, data.mins, data.ampm, data.alarmName);
+
+				// signal to google analytics tracker
+				ga('send', 'event', 'Alarm', 'Add');
+
 				hideAlarmPopup();
 			}
 		});
