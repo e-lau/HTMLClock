@@ -14,9 +14,6 @@ function deleteAllAlarms() {
 	var query = new Parse.Query(AlarmObject);
 	query.find({
 		success: function(results) {
-
-			// signal to google analytics tracker
-			ga('send', 'event', 'Alarm', 'Delete');
 			
 			if (results.length == 0) {
 				$("#alarms").append("<p>No Alarms Set</p>");
@@ -151,6 +148,9 @@ function deleteAlarm(event) {
 	var query = new Parse.Query(AlarmObject);
 	query.find({
 		success: function(results) {
+			// signal to google analytics tracker
+			ga('send', 'event', 'Alarm', 'Delete');
+			
 			if (results.length == 1) {
 				$("#alarms").append("<p id='noAlarms'>No Alarms Set</p>");
 			}
